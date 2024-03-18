@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $total_prices = $_POST['total_price'];
 
         // Update prices in the report table
-        $update_sql = "UPDATE report SET price = ?, total_price = ? WHERE requesteditem_id = ?";
+        $update_sql = "UPDATE report SET price = ?, total_price = ?, status = 1 WHERE requesteditem_id = ?";
         $stmt = $conn->prepare($update_sql);
 
         // Bind parameters and execute for each item

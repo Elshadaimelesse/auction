@@ -11,7 +11,7 @@ if ($conn->query($clear_sql) === TRUE) {
     if ($conn->query($insert_sql) === TRUE) {
         echo "Generated report<br>";
 
-        $select_sql = "SELECT * FROM report";
+        $select_sql = "SELECT * FROM report WHERE status = 0"; // Select only rows with status = 1
         $result = $conn->query($select_sql);
 
         if ($result->num_rows > 0) {
