@@ -128,15 +128,23 @@ img#img_path-field{
 			<div class="card-body">
 				<form action="" id="manage-product">
 					<input type="hidden" name="id" value="<?php echo isset($id) ? $id :'' ?>">
-					<h4><b><?php echo !isset($id) ? "New Product" : "Manage Product" ?></b></h4>
+					<h4><b><?php echo !isset($id) ? "Add Items" : "Manage Product" ?></b></h4>
 					<hr>
 					<div class="form-group row">
 						<div class="col-md-4">
 							<label for="" class="control-label">Name</label>
 							<input type="text" class="form-control" name="name"  value="<?php echo isset($name) ? $name :'' ?>" required>
 						</div>
-					
+						<div class="col-md-4">
+								<label for="" class="control-label">measurement</label>
+								<input type="text" class="form-control" name="measurement"  value="<?php echo isset($measurement) ? $measurement :'' ?>">
+							</div>
+						<div class="col-md-4">
+								<label for="" class="control-label">quantity</label>
+								<input type="text" class="form-control" name="quantity"  value="<?php echo isset($quantity) ? $quantity : 1 ?>">
+						</div>
 					</div>
+
 					<div class="form-group row">
 						<div class="col-md-4">
 							<label for="" class="control-label">Category</label>
@@ -150,8 +158,17 @@ img#img_path-field{
 								<?php endwhile; ?>
 							</select>
 						</div>
+						<div class="col-md-4">
+								<label for="" class="control-label">Price for One</label>
+								<input type="text" class="form-control" name="price_for_one"  value="<?php echo isset($price_for_one) ? $price_for_one :'' ?>" >
+						</div>
+						<div class="col-md-4">
+								<label for="" class="control-label">Total Price</label>
+								<input type="text" class="form-control" name="total_price"  value="<?php echo isset($total_price) ? $total_price : 0 ?>" > 
+						</div>
 						
 					</div>
+
 					<div class="form-group row">
 						<div class="col-md-10">
 							<label for="" class="control-label">Description</label>
@@ -168,8 +185,6 @@ img#img_path-field{
 							<label for="" class="control-label">Starting Bidding Amount</label>
 							<input type="number" class="form-control text-right" name="start_bid" value="<?php echo isset($start_bid) ? $start_bid : 0 ?>">
 						</div>
-					</div>
-					<div class="form-group row">
 						<div class="col-md-4">
 							<label for="" class="control-label">Bidding End Date/Time</label>
 							<input type="text" class="form-control datetimepicker" name="bid_end_datetime" value="<?php echo isset($bid_end_datetime) && strtotime($bid_end_datetime) > 0 ? date("Y-m-d H:i",strtotime($bid_end_datetime)) : '' ?>">
@@ -182,7 +197,7 @@ img#img_path-field{
 						</div>
 
 						<div class="col-md-5">
-							<img src="<?php echo isset($img_fname) ? 'assets/uploads/'.$img_fname :'' ?>" alt="" id="img_path-field">
+							<img src="<?php echo isset($img_fname) ? '../auctioneer/assets/uploads/'.$img_fname :'' ?>" alt="" id="img_path-field">
 						</div>
 					</div>
 					<div class="row">
