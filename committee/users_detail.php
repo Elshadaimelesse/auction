@@ -1,7 +1,8 @@
 <?php include 'db_connect.php' ?>
 <?php
 if(isset($_GET['id'])){
-    $qry = $conn->query("SELECT * FROM users where id= ".$_GET['id']);
+    $id = $_GET['id'];
+    $qry = $conn->query("SELECT * FROM users where id= $id");
     $data = $qry->fetch_assoc(); // Use fetch_assoc() to fetch associative array
     foreach($data as $k => $val){
         $$k=$val;
@@ -50,7 +51,7 @@ else{
                 <div class="avatar">
                     <?php 
                     if(!empty($photo)) { // Check if photo field is not empty
-                        echo '<img src="data:image/jpg;base64,'.base64_encode($photo).'" alt="User Photo">'; // Display the image
+                        echo '<img src="data:image/jpeg;base64,'.base64_encode($photo).'" alt="User Photo">'; // Display the image
                     } else {
                         echo 'No photo available';
                     }
@@ -65,6 +66,9 @@ else{
                 <p>User Type: <b><?php echo $type ?></b></p>
                 <p>Registration Date: <b><?php echo $data_created ?></b></p>
                 <p>Tax Payment ID: <b><?php echo $TIN_number ?></b></p>
+                
+                <p>image : <b><?php echo $photo ?></b></p>
+                
             </div>
         </div>
     </div>
