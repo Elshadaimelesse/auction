@@ -132,4 +132,79 @@
     }
 }
 </script>
+<?php
+
+
+// Directory where images will be stored
+$imageDirectory = "/uploads";
+
+// Create the directory if it doesn't exist
+if (!file_exists($imageDirectory)) {
+    mkdir($imageDirectory, 0777, true);
+}
+
+// Handle form submission
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['action']) && $_GET['action'] == 'signup') {
+    // Your existing form handling code here
+    
+    // Example code for handling image upload
+    if (isset($_FILES['img'])) {
+        // Debugging: Inspect $_FILES array
+        echo '<pre>';
+        var_dump($_FILES);
+        echo '</pre>';
+
+        // Directory where images will be stored
+        $imageDirectory = "/uploads";
+
+        // Create the directory if it doesn't exist
+        if (!file_exists($imageDirectory)) {
+            mkdir($imageDirectory, 0777, true);
+        }
+
+        $target_dir = $imageDirectory;
+        $target_file = $target_dir . basename($_FILES["img"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is a actual image or fake image
+        $check = getimagesize($_FILES["img"]["tmp_name"]);
+        if ($check !== false) {
+            $uploadOk = 1;
+        } else {
+            $uploadOk = 0;
+        }
+
+        // Check file size
+        if ($_FILES["img"]["size"] > 500000) {
+            $uploadOk = 0;
+        }
+
+        // Allow only certain file formats
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            // File upload failed
+            echo "Sorry, your file was not uploaded.";
+        } else {
+            // File upload successful, move uploaded file to target directory
+            if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                // File uploaded successfully
+                // You can save the file path to your database or do any other necessary processing
+                echo "The file ". htmlspecialchars( basename( $_FILES["img"]["name"])). " has been uploaded.";
+            } else {
+                // File upload failed
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+    }
+
+    // Rest of your form handling code
+}
+
+?>
 
