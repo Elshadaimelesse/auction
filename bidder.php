@@ -53,7 +53,7 @@
       #main-field{
         margin-top: 5rem!important;
       }
-      .wku {
+      .wpcsc {
   width: 55px;
   margin-right: 10px;
 }
@@ -66,7 +66,7 @@
       </div>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
             <div class="container-fluid">
-                <a class="navbar-brand js-scroll-trigger" href="#"><img src="images/wku.png" class="wku"><?php echo $_SESSION['system']['name'] ?></a>
+                <a class="navbar-brand js-scroll-trigger" href="#"><img src="images/wpcsc.png" class="wpcsc"><?php echo $_SESSION['system']['name'] ?></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
@@ -472,7 +472,7 @@ accordion style start
                 </div>
             </div>
             <br>
-            <div class="container"><div class="small text-center text-muted">Copyright © 2021 - <?php echo $_SESSION['system']['name'] ?> | <a href="https://www.wku.edu.et//" target="_blank">Wolkite University</a></div></div>
+            <div class="container"><div class="small text-center text-muted">Copyright © 2021 - <?php echo $_SESSION['system']['name'] ?> | <a href="https://www.wpcsc.edu.et//" target="_blank">Wolkite polythecnc</a></div></div>
         </footer>
         
        <?php include('footer.php') ?>

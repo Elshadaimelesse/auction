@@ -47,10 +47,15 @@
         <div class="form-group">
             <input type="text" name="TIN" class="form-control" placeholder="Taxpayment ID (TIN)" required="">
         </div>
-        <div class="form-group">
-            <input type="file" name="photo" class="form-control-file" accept="image/*" id="photo" onchange="previewImage(this)">
-            <img id="image_preview" src="#" alt="Preview" style="display: none; max-width: 150px; max-height: 150px;">
-        </div>
+        <div class="justify-content-start">
+			<div class="p-1 col-4">
+				<!--<input type="file"  accept="image/*" name="image" id="file" onchange="loadFile(event)" required="" />-->
+				<input type="file" class="form-control" name="img" onchange="displayImg2(this,$(this))">
+			</div>
+			<div class="p-1 col-6">
+				<img src="<?php echo isset($photo) ? 'pho/'.$photo :'' ?>" alt="" id="img_path-field">
+			</div>
+		</div>
         <div> <a href="javascript:void(0)" id="login"> ◄ Back to login</a></div>
        
         <button class="button btn btn-primary btn-sm">Create</button>
@@ -116,65 +121,15 @@
         })
     })
 
-    function previewImage(input) {
+    function displayImg2(input,_this) {
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#image_preview').attr('src', e.target.result).show();
+        	$('#img_path-field').attr('src', e.target.result);
         }
+
         reader.readAsDataURL(input.files[0]);
     }
+}
 </script>
 
-<?php
-
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Check if photo is uploaded
-    if (isset($_FILES['photo'])) {
-        // Directory for storing images
-        $dir = 'uploads/';
-
-        // Check if the directory exists, if not create it
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
-        }
-
-        // File properties
-        $file_name = $_FILES['photo']['name'];
-        $file_size = $_FILES['photo']['size'];
-        $file_tmp = $_FILES['photo']['tmp_name'];
-        $file_type = $_FILES['photo']['type'];
-        $target_file = $dir . basename($file_name);
-
-        // Check file size
-        if ($file_size > 500000) {
-            echo "Sorry, your file is too large.";
-            exit;
-        }
-
-        // Allow certain file formats
-        $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
-        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        if (!in_array($file_ext, $allowed_types)) {
-            echo "Sorry, only JPG, JPEG, PNG, GIF files are allowed.";
-            exit;
-        }
-
-        // Move the uploaded file to the uploads directory
-        if (move_uploaded_file($file_tmp, $target_file)) {
-            // Insert photo file name into the database
-            // You should use prepared statements to prevent SQL injection
-            $stmt = $pdo->prepare("INSERT INTO your_table_name (photo) VALUES (?)");
-            $stmt->execute([$file_name]);
-
-            echo "Photo inserted successfully.";
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-            exit;
-        }
-    } else {
-        echo "No photo uploaded.";
-        exit;
-    }
-}
-?>

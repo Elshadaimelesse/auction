@@ -61,7 +61,7 @@
 				<input type="file" class="form-control" name="img" onchange="displayImg2(this,$(this))">
 			</div>
 			<div class="p-1 col-6">
-				<img src="<?php echo isset($img_fname) ? 'photos/'.$img_fname :'' ?>" alt="" id="img_path-field">
+				<img src="<?php echo isset($photo) ? 'photos/'.$photo :'' ?>" alt="" id="img_path-field">
 			</div>
 		</div>
 		<button class="button btn btn-primary btn-sm">Create</button>

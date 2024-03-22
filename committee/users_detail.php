@@ -51,7 +51,13 @@ else{
                 <div class="avatar">
                     <?php 
                     if(!empty($photo)) { // Check if photo field is not empty
-                        echo '<img src="data:image/jpeg;base64,'.base64_encode($photo).'" alt="User Photo">'; // Display the image
+                        // Check if the photo field contains a file path
+                        if (file_exists($photo)) {
+                            echo '<img src="'.$photos.'" alt="User Photo">'; // Display the image directly from the file path
+                        } else {
+                            // If not a file path, assume it's binary image data and encode it
+                            echo '<img src="data:image/jpeg;base64,'.base64_encode($photo).'" alt="User Photo">'; // Display the image
+                        }
                     } else {
                         echo 'No photo available';
                     }
@@ -66,8 +72,6 @@ else{
                 <p>User Type: <b><?php echo $type ?></b></p>
                 <p>Registration Date: <b><?php echo $data_created ?></b></p>
                 <p>Tax Payment ID: <b><?php echo $TIN_number ?></b></p>
-                
-                <p>image : <b><?php echo $photo ?></b></p>
                 
             </div>
         </div>
