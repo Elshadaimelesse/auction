@@ -51,7 +51,7 @@ $owner = $_SESSION['login_id'];
                     </a>
                 <?php }  
 
-$d = date('g:i a',strtotime($row['date']));
+$d= date('g:i a',strtotime($row['date']));
                 ?>
                              
 <!--                     <small><i><?php #echo date('F j, Y, g:i a',strtotime($i['date'])) ?></i></small><br/>  
