@@ -34,7 +34,7 @@ $_SESSION['pro_form_amount'] = $price_for_form;
 </style>
 <div class="container-fluid wh">
     <div class="payment_frm">
-    <img src="auctioneer/assets/images/wku.png" class="d-flex wk" alt="Logo">
+    <img src="images/logo.png" class="d-flex wk" alt="Logo">
     <h5 class="text-center">Payment For Bid Form</h5>
     <p >First you have to make a payment to get the bid-form by using <b>Mobile-Banking</b> or by <b>Tele-Birr</b> then after fill the form below with a correct information!</p>
     <h5 class="text-center" style="color: green">Name: <?php echo $name ?></h5>

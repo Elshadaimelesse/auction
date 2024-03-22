@@ -126,12 +126,8 @@
 </script>
 
 <?php
-// Create directory for storing images if it doesn't exist
 
 
-// Database connection code goes here
-
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if photo is uploaded
     if (isset($_FILES['photo'])) {
