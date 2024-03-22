@@ -127,18 +127,28 @@
 
 <?php
 // Create directory for storing images if it doesn't exist
-$dir = 'uploads';
-if (!is_dir($dir)) {
-    mkdir($dir, 0777, true);
-}
 
+
+// Database connection code goes here
+
+// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Check if photo is uploaded
     if (isset($_FILES['photo'])) {
+        // Directory for storing images
+        $dir = 'uploads/';
+
+        // Check if the directory exists, if not create it
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
+        // File properties
         $file_name = $_FILES['photo']['name'];
         $file_size = $_FILES['photo']['size'];
         $file_tmp = $_FILES['photo']['tmp_name'];
         $file_type = $_FILES['photo']['type'];
-        $target_file = $dir . '/' . $file_name;
+        $target_file = $dir . basename($file_name);
 
         // Check file size
         if ($file_size > 500000) {
@@ -156,11 +166,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Move the uploaded file to the uploads directory
         if (move_uploaded_file($file_tmp, $target_file)) {
-            echo "The file " . basename($file_name) . " has been uploaded.";
+            // Insert photo file name into the database
+            // You should use prepared statements to prevent SQL injection
+            $stmt = $pdo->prepare("INSERT INTO your_table_name (photo) VALUES (?)");
+            $stmt->execute([$file_name]);
+
+            echo "Photo inserted successfully.";
         } else {
             echo "Sorry, there was an error uploading your file.";
             exit;
         }
+    } else {
+        echo "No photo uploaded.";
+        exit;
     }
 }
 ?>
