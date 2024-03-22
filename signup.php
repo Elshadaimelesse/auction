@@ -46,12 +46,9 @@
         </div>
         <div class="form-group">
             <input type="text" name="TIN" class="form-control" placeholder="Taxpayment ID (TIN)" required="">
-          
-
-            
         </div>
         <div class="form-group">
-            <input type="file" name="profile_image" class="form-control-file" accept="image/*" id="profile_image" onchange="previewImage(this)">
+            <input type="file" name="photo" class="form-control-file" accept="image/*" id="photo" onchange="previewImage(this)">
             <img id="image_preview" src="#" alt="Preview" style="display: none; max-width: 150px; max-height: 150px;">
         </div>
         <div> <a href="javascript:void(0)" id="login"> ◄ Back to login</a></div>
@@ -127,3 +124,43 @@
         reader.readAsDataURL(input.files[0]);
     }
 </script>
+
+<?php
+// Create directory for storing images if it doesn't exist
+$dir = 'uploads';
+if (!is_dir($dir)) {
+    mkdir($dir, 0777, true);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_FILES['photo'])) {
+        $file_name = $_FILES['photo']['name'];
+        $file_size = $_FILES['photo']['size'];
+        $file_tmp = $_FILES['photo']['tmp_name'];
+        $file_type = $_FILES['photo']['type'];
+        $target_file = $dir . '/' . $file_name;
+
+        // Check file size
+        if ($file_size > 500000) {
+            echo "Sorry, your file is too large.";
+            exit;
+        }
+
+        // Allow certain file formats
+        $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        if (!in_array($file_ext, $allowed_types)) {
+            echo "Sorry, only JPG, JPEG, PNG, GIF files are allowed.";
+            exit;
+        }
+
+        // Move the uploaded file to the uploads directory
+        if (move_uploaded_file($file_tmp, $target_file)) {
+            echo "The file " . basename($file_name) . " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+            exit;
+        }
+    }
+}
+?>
