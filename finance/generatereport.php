@@ -19,12 +19,7 @@ if ($conn->query($clear_sql) === TRUE) {
             echo "<form action='submit_report.php' method='post'>
                     <table>
                         <tr>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Description</th>
-                            <th>Measurement</th>
-                            <th>Quantity</th>
-                            <th>ID</th>
+                            
                             <th>Price</th>
                             <th>Total Price</th>
                         </tr>";
@@ -36,8 +31,8 @@ if ($conn->query($clear_sql) === TRUE) {
                         <td>" . $row["requesteditem_measurment"] . "</td>
                         <td>" . $row["requesteditem_quantity"] . "</td>
                         <td>" . $row["requesteditem_id"] . "</td>
-                        <td><input type='text' name='price[" . $row["requesteditem_id"] . "]' value='" . ($row["price"] ?? '') . "'></td>
-                        <td><input type='text' name='total_price[" . $row["requesteditem_id"] . "]' value='" . ($row["total_price"] ?? '') . "'></td>
+                        <td><input type='number' name='price[" . $row["requesteditem_id"] . "]' value='" . ($row["price"] ?? '') . "'></td>
+                        <td><input type='number' name='total_price[" . $row["requesteditem_id"] . "]' value='" . ($row["total_price"] ?? '') . "'></td>
                       </tr>";
             }
             echo "</table>
