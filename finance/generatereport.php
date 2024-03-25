@@ -36,13 +36,25 @@ if ($conn->query($clear_sql) === TRUE) {
                         <td>" . $row["requesteditem_measurment"] . "</td>
                         <td>" . $row["requesteditem_quantity"] . "</td>
                         <td>" . $row["requesteditem_id"] . "</td>
-                        <td><input type='text' name='price[" . $row["requesteditem_id"] . "]' value='" . $row["price"] . "'></td>
-                        <td><input type='text' name='total_price[" . $row["requesteditem_id"] . "]' value='" . $row["total_price"] . "'></td>
+                        <td><input type='text' name='price[" . $row["requesteditem_id"] . "]' value='" . ($row["price"] ?? '') . "'></td>
+                        <td><input type='text' name='total_price[" . $row["requesteditem_id"] . "]' value='" . ($row["total_price"] ?? '') . "'></td>
                       </tr>";
             }
             echo "</table>
                   <input type='submit' value='Submit Report'>
                   </form>";
+
+            // Process submitted prices and total prices
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                foreach ($_POST['price'] as $requesteditem_id => $price) {
+                    $price = floatval($price);
+                    $total_price = floatval($_POST['total_price'][$requesteditem_id]);
+                    $update_sql = "UPDATE report SET price = $price, total_price = $total_price WHERE requesteditem_id = $requesteditem_id";
+                    if ($conn->query($update_sql) !== TRUE) {
+                        echo "Error updating record: " . $conn->error;
+                    }
+                }
+            }
         } else {
             echo "0 results";
         }
